@@ -39,8 +39,8 @@ namespace Labb3Lonerevision
                 try
                 {
                     Console.Write(prompt);
-                    int amountOfSalaries = int.Parse(Console.ReadLine());
-                    return amountOfSalaries;
+                    int value = int.Parse(Console.ReadLine());
+                    return value;
                 }
                 catch
                 {
@@ -53,7 +53,7 @@ namespace Labb3Lonerevision
         static void ProcessSalaries(int count)
         {
             int[] salaries = new int[count];
-            int[] sortedSalaries = new int[count];  
+            int[] sortedSalaries = new int[count];
 
             for (int i = 0; i < count; i++)
             {
@@ -61,8 +61,7 @@ namespace Labb3Lonerevision
                 {
                     try
                     {
-                        Console.Write("Ange lön nummer {0,10}: ", i + 1);
-                        salaries[i] = int.Parse(Console.ReadLine());
+                        salaries[i] = ReadInt("Ange lön nummer " + (i+1) + ": ");
                         break;
                     }
                     catch
@@ -81,18 +80,19 @@ namespace Labb3Lonerevision
                 int number1 = sortedSalaries.Length / 2;
                 int number2 = number1 - 1;
                 median = (sortedSalaries[number1] + sortedSalaries[number2])/2;
-                Console.WriteLine("---------------------------------");
+                Console.WriteLine("---------------------------------------");
                 Console.WriteLine("Medianlön: {0,10:C0}", median);
             }
             else
             {
                 median = sortedSalaries.Length / 2;
-                Console.WriteLine("Medianlön:     {0,10:C0}", sortedSalaries[median]);
+                Console.WriteLine("---------------------------------------");
+                Console.WriteLine("Medianlön:      {0,10:C0}", sortedSalaries[median]);
             }
 
-            Console.WriteLine("Medellön:      {0,10:C0}", sortedSalaries.Average());
-            Console.WriteLine("Lönespridning: {0,10:C0}",sortedSalaries.Max() - sortedSalaries.Min());
-            Console.WriteLine("---------------------------------");
+            Console.WriteLine("Medellön:       {0,10:C0}", sortedSalaries.Average());
+            Console.WriteLine("Lönespridning:  {0,10:C0}",sortedSalaries.Max() - sortedSalaries.Min());
+            Console.WriteLine("---------------------------------------");
             for (int i = 0; i < count; i++)
             {
                 if (i % 3 == 0)
