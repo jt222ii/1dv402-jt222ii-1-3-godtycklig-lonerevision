@@ -36,16 +36,17 @@ namespace Labb3Lonerevision
 
             while (true)
             {
+                Console.Write(prompt);
+                string userInput = Console.ReadLine();
                 try
                 {
-                    Console.Write(prompt);
-                    int value = int.Parse(Console.ReadLine());
+                    int value = int.Parse(userInput);
                     return value;
                 }
                 catch
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Ogiltig summa. Var god försök igen");
+                    Console.WriteLine("Ogiltig summa. '{0}' kan inte tolkas som en siffra! Var god försök igen", userInput);
                     Console.ResetColor();
                 }
             }
