@@ -13,9 +13,9 @@ namespace Labb3Lonerevision
             do
             {
                 Console.Clear();
-                int amountOfSalaries = ReadInt("Ange antal löner att mata in: ");
+                int amountOfSalaries = ReadInt("Ange antal löner att mata in: "); //startar metoden ReadInt och skickar med en prompt
                 Console.WriteLine();
-                if (amountOfSalaries < 2)
+                if (amountOfSalaries < 2)   //om antal löner är mindre än 2 så får man ett felmeddelande och man får försöka igen...
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine("Antal löner måste vara 2 eller mer!");
@@ -26,18 +26,18 @@ namespace Labb3Lonerevision
                 }
                 else
                 {
-                    ProcessSalaries(amountOfSalaries);
+                    ProcessSalaries(amountOfSalaries); //...annars startar den metoden ProcessSalaries
                 }
             }
-            while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+            while (Console.ReadKey(true).Key != ConsoleKey.Escape); //...när man loopat "do-while"-loopen får man skriva in en key och så länge den inte är ESC så fortsätter loopen
         }
-        static int ReadInt(string prompt)
+        static int ReadInt(string prompt) //readint läser in allt.
         {
 
             while (true)
             {
                 Console.Write(prompt);
-                string userInput = Console.ReadLine();
+                string userInput = Console.ReadLine(); //skriver in userInput innan try catch och innan omvandling till int för att kunna använda den i både try och catch
                 try
                 {
                     int value = int.Parse(userInput);
@@ -51,49 +51,36 @@ namespace Labb3Lonerevision
                 }
             }
         }
-        static void ProcessSalaries(int count)
+        static void ProcessSalaries(int count) //ProcessSalaries behandlar alla siffror och uträkningar. Tar emot värdet från "amountOfSalaries" som den lägger in i integern "count"
         {
-            int[] salaries = new int[count];
-            int[] sortedSalaries = new int[count];
+            int[] salaries = new int[count];        //är min osorterade array
+            int[] sortedSalaries = new int[count];  // kommer vara min sorterade array
 
-            for (int i = 0; i < count; i++)
-            {
-                while (true)
-                {
-                    try
-                    {
-                        salaries[i] = ReadInt("Ange lön nummer " + (i+1) + ": ");
-                        break;
-                    }
-                    catch
-                    {
-                        Console.BackgroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Ogiltig summa. Var god försök igen");
-                        Console.ResetColor();
-                    }
-                }
+            for (int i = 0; i < count; i++)         //Loopar lika långt som arrayen är och man får skriva in varje "låda" en efter en. 
+            {                                       //Count är hur lång arrayen är och det man fick ge ett värde första gången.
+                        salaries[i] = ReadInt("Ange lön nummer " + (i+1) + ": "); 
             }
             sortedSalaries = (int[])salaries.Clone();
             Array.Sort(sortedSalaries);
             int median;
-            if (count % 2 == 0)
-            {
-                int number1 = sortedSalaries.Length / 2;
-                int number2 = number1 - 1;
-                median = (sortedSalaries[number1] + sortedSalaries[number2])/2;
+            if (count % 2 == 0)                 //om antal löner är jämnt måste den ta de två mittersta talet och dividera det med varandra för att få medianen.
+            {                           
+                int number1 = count / 2;        //Tar det största mittersta "lådnummret" Ex) Längden på arrayen är 6. Då behöver man 2 och 3 (eftersom array börjar på 0, 1, 2...)
+                int number2 = number1 - 1;      //tar det mindre mittersta "lådnummret"    ) 6/2=3, 3-1=2    
+                median = (sortedSalaries[number1] + sortedSalaries[number2])/2; // tar värderna från respektive "låda" och lägger ihop dem sedan delar det på två. variabeln "median" får värdet
             }
             else
             {
-                median = sortedSalaries[sortedSalaries.Length / 2];
+                median = sortedSalaries[count / 2];     //ojämn tal behöver bara delas på 2. ex) 5/2 = 2,5 = 2 eftersom det är en integer.
             }
             Console.WriteLine("---------------------------------------");
             Console.WriteLine("Medianlön:      {0,10:C0}", median);
-            Console.WriteLine("Medellön:       {0,10:C0}", sortedSalaries.Average());
-            Console.WriteLine("Lönespridning:  {0,10:C0}",sortedSalaries.Max() - sortedSalaries.Min());
+            Console.WriteLine("Medellön:       {0,10:C0}", sortedSalaries.Average());  //räknar ut medellönen 
+            Console.WriteLine("Lönespridning:  {0,10:C0}",sortedSalaries.Max() - sortedSalaries.Min()); //max-min = lönesspridning
             Console.WriteLine("---------------------------------------");
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)     //skriver ut lönerna i den ordning man skrev in dem i
             {
-                if (i % 3 == 0)
+                if (i % 3 == 0)                 //var tredje rad gör den en radbrytning
                 {
                     Console.WriteLine();
                 }
