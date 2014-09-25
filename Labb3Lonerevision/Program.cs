@@ -20,14 +20,14 @@ namespace Labb3Lonerevision
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine("Antal löner måste vara 2 eller mer!");
                     Console.ResetColor();
-                    Console.BackgroundColor = ConsoleColor.DarkGreen;
-                    Console.WriteLine("Tryck valfri tangent för ny uträkning - ESC avslutar ");
-                    Console.ResetColor();
                 }
                 else
                 {
                     ProcessSalaries(amountOfSalaries); //...annars startar den metoden ProcessSalaries
                 }
+                Console.BackgroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine("\nTryck valfri tangent för ny uträkning - ESC avslutar ");
+                Console.ResetColor();
             }
             while (Console.ReadKey(true).Key != ConsoleKey.Escape); //...när man loopat "do-while"-loopen får man skriva in en key och så länge den inte är ESC så fortsätter loopen
         }
@@ -58,7 +58,7 @@ namespace Labb3Lonerevision
 
             for (int i = 0; i < count; i++)         //Loopar lika långt som arrayen är och man får skriva in varje "låda" en efter en. 
             {                                       //Count är hur lång arrayen är och det man fick ge ett värde första gången.
-                        salaries[i] = ReadInt("Ange lön nummer " + (i+1) + ": "); 
+                        salaries[i] = ReadInt(String.Format("Ange lön nummer {0}: ", (i+1))); 
             }
             sortedSalaries = (int[])salaries.Clone();
             Array.Sort(sortedSalaries);
@@ -86,11 +86,6 @@ namespace Labb3Lonerevision
                 }
                 Console.Write("{0,10}", salaries[i]);
             }
-
-            Console.BackgroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("\nTryck valfri tangent för ny uträkning - ESC avslutar ");
-            Console.ResetColor();
         }
-
     }
 }
